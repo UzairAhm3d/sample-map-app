@@ -1,4 +1,5 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoidXphaXItYWhtZWQiLCJhIjoiY2xxdjN2azYzNWx1NzJqdGtieGFvaGhjdSJ9.QPv44ad3PhO08t_HOTR7Aw';
+const ACCESS_TOKEN = 'pk.eyJ1IjoidXphaXItYWhtZWQiLCJhIjoiY2xxdjN2azYzNWx1NzJqdGtieGFvaGhjdSJ9.QPv44ad3PhO08t_HOTR7Aw';
+mapboxgl.accessToken = ACCESS_TOKEN;
 
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
     enableHighAccuracy: true
@@ -30,17 +31,20 @@ function setupMap(center) {
     // Add Direction Plugin
     addDirection(map);
 
+    // Add Search Box
+    searchBox(map);
+
 }
 
 function addControl(map) {
     const nav = new mapboxgl.NavigationControl();
     
-    map.addControl(nav);
+    map.addControl(nav, 'bottom-right');
 }
 
 function addDirection(map) {
     const direction = new MapboxDirections({
-        accessToken: mapboxgl.accessToken
+        accessToken: ACCESS_TOKEN
     });
 
     map.addControl(direction, 'top-left');
@@ -75,5 +79,16 @@ function addMarkerToCurrentLocation(map, center) {
     .setLngLat(center)
     .setPopup(popup)
     .addTo(map);
+}
+
+function searchBox(map) {
+    
+    const searchBox = new MapboxSearchBox();
+    searchBox.accessToken = ACCESS_TOKEN;
+    searchBox.popoverOptions = {
+        placement: 'top-start'
+    };
+    map.addControl(searchBox);
+
 }
         
