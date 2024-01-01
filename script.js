@@ -85,9 +85,6 @@ function searchBox(map) {
     
     const searchBox = new MapboxSearchBox();
     searchBox.accessToken = ACCESS_TOKEN;
-    searchBox.popoverOptions = {
-        placement: 'top-start'
-    };
     map.addControl(searchBox);
 
 }
